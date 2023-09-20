@@ -1,0 +1,14 @@
+Frontend/angular
+Frontend/.vscode
+Frontend/node_modules
+Frontend/src/app/env.environment.ts
+Frontend/src/assets
+Frontend/angular.json
+Frontend/package-lock.json
+Frontend/tsconfig.app.json
+Frontend/tsconfig.json
+Frontend/tsconfig.spec.json
+
+Backend/node_modules
+Backend/.env
+Backend/package-lock.json

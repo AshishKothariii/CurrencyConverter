@@ -1,0 +1,65 @@
+<!-- src/app/app.component.html -->
+
+<div class="container" style="background-color: #36393f">
+  <div class="content">
+    <mat-form-field class="input">
+      <mat-label>Enter Amount:</mat-label>
+      <input
+        type="number"
+        matInput
+        [(ngModel)]="amount"
+        style="width: 100%; margin-bottom: 10px"
+      />
+    </mat-form-field>
+
+    <div class="input-container">
+      <mat-form-field
+        class="dropdown"
+        style="flex: 1; margin-right: 10px; width: 45%"
+      >
+        <mat-label>Select Base Currency:</mat-label>
+        <mat-select [(ngModel)]="dropdown1">
+          <mat-option *ngFor="let currency of currencies" [value]="currency">{{
+            currency
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="dropdown" style="flex: 1; width: 45%">
+        <mat-label>Select Converted Currency:</mat-label>
+        <mat-select [(ngModel)]="dropdown2">
+          <mat-option *ngFor="let currency of currencies" [value]="currency">{{
+            currency
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="postConversionData()"
+      style="margin-top: 20px"
+    >
+      Convert
+    </button>
+  </div>
+</div>
+
+<!-- Display the conversion result message outside of the container -->
+<!-- src/app/app.component.html -->
+
+<!-- ... (previous HTML code) ... -->
+
+<!-- Display the conversion result message outside of the container with white text color -->
+<div
+  class="message"
+  *ngIf="conversionResponse"
+  style="color: white; width: 120%"
+>
+  {{ amount }} {{ dropdown1 }} is equal to
+  {{ conversionResponse.convertedvalue }} {{ dropdown2 }} <br />
+</div>
+<div class="time" *ngIf="conversionResponse" style="color: white">
+  Last updated {{ conversionResponse.lastupdated }} minutes ago
+</div>
