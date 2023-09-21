@@ -12,7 +12,6 @@ export class AppComponent implements OnInit {
   dropdown2: string = 'EUR'; // Default value for dropdown2
   amount: number = 1; // Default value for amount
 
-  url = environment.apiUrl;
   rate_data: any; // Declare rate_data property
 
   conversionResponse: any; // Initialize conversionResponse property
@@ -20,12 +19,11 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   async ngOnInit(): Promise<void> {
-    try {
-      this.rate_data = await this.http.get(this.url).toPromise();
-      this.currencies = Object.keys(this.rate_data.rates);
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    this.http.get<any>(environment.ratesUrl).subscribe((response) => {
+      // Update conversionResponse with the server response
+      this.rate_data = response.hello;
+      this.currencies = Object.keys(this.rate_data);
+    });
   }
   // Function to post conversion data to the server
   postConversionData() {

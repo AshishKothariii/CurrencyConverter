@@ -3,21 +3,23 @@ const cors = require("cors");
 const dotenv = require("dotenv").config();
 const mongoose = require("mongoose");
 const Rates = require("./models/Rates");
-
-const app = express();
-app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
-const port = process.env.PORT || 3000; // Use PORT from environment or default to 3000
 const axios = require("axios");
+const app = express();
 
 mongoose.connect(process.env.MONGO_URL);
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
+const port = process.env.PORT || 3000; // Use PORT from environment or default to 3000
 
 app.get("/", async (req, res) => {
   res.send("hello");
 });
-
+app.get("/rates", async (req, res) => {
+  const rates = await axios.get(process.env.API);
+  const rate = rates.data.rates;
+  res.send({ hello: rate });
+});
 app.post("/conversion", async (req, res) => {
   const amount = req.body.amount;
   const baseCurrency = req.body.baseCurrency;
